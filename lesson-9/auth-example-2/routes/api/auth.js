@@ -4,7 +4,7 @@ const ctrl = require("../../controllers/auth")
 
 const {ctrlWrapper} = require("../../helpers")
 
-const {validateBody} = require("../../middlewares")
+const {validateBody, authenticate, upload} = require("../../middlewares")
 
 const {schemas} = require("../../models/user")
 
@@ -15,5 +15,7 @@ router.post("/register", validateBody(schemas.registerSchema), ctrlWrapper(ctrl.
 
 // signin
 router.post("/login", validateBody(schemas.loginSchema), ctrlWrapper(ctrl.login))
+
+router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar))
 
 module.exports = router;

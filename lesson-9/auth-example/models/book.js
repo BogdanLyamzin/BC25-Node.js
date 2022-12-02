@@ -24,12 +24,17 @@ const bookSchema = new Schema({
         enum: genres,
         required: true,
     },
-    isbn: {
-        type: String,
-        match: isbnRegexp,
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
         required: true,
-        unique: true,
     }
+    // isbn: {
+    //     type: String,
+    //     match: isbnRegexp,
+    //     required: true,
+    //     unique: true,
+    // }
 }, {versionKey: false, timestamps: true})
 
 bookSchema.post("save", handleSaveErrors)
@@ -39,7 +44,7 @@ const addSchema = Joi.object({
     author: Joi.string().required(),
     favorite: Joi.boolean(),
     genre: Joi.string().valid(...genres).required(),
-    isbn: Joi.string().pattern(isbnRegexp).required(),
+    // isbn: Joi.string().pattern(isbnRegexp).required(),
 })
 
 const updateFavoriteSchema = Joi.object({

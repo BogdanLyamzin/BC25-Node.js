@@ -20,6 +20,14 @@ const userSchema = new Schema({
         type: String,
         minlength: 6,
         required: true,
+    },
+    token: {
+        type: String,
+        defalut: ""
+    },
+    avatarURL: {
+        type: String,
+        required: true,
     }
 }, {versionKey: false, timestamps: true})
 
